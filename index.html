@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Armando Shkambi</title>
+<meta name="description" content="I build deterministic control layers that let you run untrusted AI coding agents without letting them act on their own." />
+<style>
+  :root{
+    --bg:#0b1020; --panel:#10172c; --line:#1e2942;
+    --ink:#e9eef8; --mute:#93a3c2; --teal:#5ad0c8; --green:#7ad88e;
+    --violet:#9b7fe0; --pink:#f0a0b8;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  /* hero */
+  .hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;gap:22px;padding:80px 24px 40px}
+  .hero img{width:min(340px,80vw);image-rendering:pixelated;filter:drop-shadow(0 10px 40px rgba(90,208,200,.10))}
+  .hero-static{display:none}
+  h1{font-size:clamp(30px,5.4vw,52px);line-height:1.12;margin:0;letter-spacing:-.02em;font-weight:700}
+  .sub{color:var(--mute);font-size:clamp(16px,2.4vw,20px);max-width:34ch;margin:0}
+  .rail{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .rail a{border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--ink);
+    font-size:14px;transition:border-color .15s,background .15s}
+  .rail a:hover{border-color:var(--teal);background:#0e1730;text-decoration:none}
+  .stat{font-family:var(--mono);color:var(--mute);font-size:13.5px;letter-spacing:.02em}
+  /* sections */
+  section{padding:54px 0;border-top:1px solid var(--line)}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--mute);
+    font-weight:600;margin:0 0 18px}
+  p{margin:0 0 16px}
+  .flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;font-family:var(--mono);
+    font-size:14px;margin:20px 0 4px}
+  .node{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;flex:1;min-width:150px;text-align:center}
+  .node.allow{border-color:rgba(122,216,142,.5)} .node.block{border-color:rgba(232,106,116,.5)}
+  .arrow{align-self:center;color:var(--mute)}
+  .demo{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0a0e16;
+    box-shadow:0 12px 50px rgba(0,0,0,.4)}
+  .demo img{display:block;width:100%}
+  .demo-static{display:none}
+  .cap{color:var(--mute);font-size:13px;margin-top:10px}
+  footer{padding:48px 0 72px;border-top:1px solid var(--line);color:var(--mute);font-size:15px}
+  footer a{color:var(--ink)}
+  @media (prefers-reduced-motion: reduce){
+    .hero-motion,.demo-motion{display:none}
+    .hero-static,.demo-static{display:block}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <img class="hero-motion" src="hero.gif" alt="Pixel scene: a small green creature among metal pipes and vines, signals pulsing through the pipeline" />
+    <img class="hero-static" src="pixel_hero.png" alt="Pixel scene: a small green creature among metal pipes and vines" />
+    <h1>Untrusted AI agents, kept in check.</h1>
+    <p class="sub">I build deterministic control layers. The agent proposes, a gate decides, and every run is signed and checkable.</p>
+    <p class="stat">330+ merged PRs &nbsp;·&nbsp; 320+ modules &nbsp;·&nbsp; 50,000+ lines &nbsp;·&nbsp; 4,500+ tests &nbsp;·&nbsp; solo, under a year</p>
+    <nav class="rail">
+      <a href="https://github.com/Ourbando">GitHub</a>
+      <a href="mailto:armandoshk99@gmail.com">Email</a>
+      <a href="#work">The work</a>
+    </nav>
+  </header>
+
+  <main class="wrap" id="work">
+    <section>
+      <h2>What it does</h2>
+      <p>The agent has zero authority. It can propose any action and execute none. A deterministic gate makes every decision, and the model cannot reach it, so a jailbreak or a prompt injection changes what the agent asks for, never what it can do.</p>
+      <div class="flow">
+        <div class="node">Untrusted agent proposes</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node">Deterministic gate decides</div>
+        <div class="arrow">&rarr;</div>
+        <div class="node allow">Allowed</div>
+        <div class="node block">Blocked, logged</div>
+      </div>
+      <p>Every run produces a signed record anyone can re-run and check, the history is tamper-evident, and there is an honest line between what it proves and what still needs a person. It runs air-gapped, on your own hardware, in Python, with almost no third-party code.</p>
+    </section>
+
+    <section>
+      <h2>See it decide</h2>
+      <div class="demo">
+        <img class="demo-motion" src="demo.gif" alt="Terminal: the gate refuses a destructive action, then allows and verifies a safe one" />
+        <img class="demo-static" src="demo_preview.png" alt="Terminal: the gate refuses a destructive action, then allows a safe one" />
+      </div>
+      <p class="cap">A dangerous action refused, a safe one allowed and recorded. Same decision path, every run.</p>
+    </section>
+
+  </main>
+
+  <footer class="wrap">
+    Open to AI-engineering roles, London or remote UK. Happy to walk a serious party through the live system.<br />
+    <a href="mailto:armandoshk99@gmail.com">armandoshk99@gmail.com</a>
+  </footer>
+</body>
+</html>
